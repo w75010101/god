@@ -8,6 +8,7 @@ function app(req, res) {
 		'content-type': 'text/html;charset=utf-8'
 	})
 	res.write('<h1>首页</h1>')
+	res.write('<h3>首页2</h3>')
 	res.end()
 }
 
