@@ -1,0 +1,9 @@
+{
+  "name": "god",
+  "version": "0.0.1",
+  "description": "no",
+  "main": "index.js",
+  "repository": "https://github.com/w75010101/god.git",
+  "author": "heisamawang <464577795@qq.com>",
+  "license": "MIT"
+}
