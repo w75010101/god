@@ -4,8 +4,6 @@ let port = 2000
 
 http.createServer(app).listen(port, onRunning(port))
 
-
-
 function app(req, res) {
 	Router.configura(req, res, [
 	{
