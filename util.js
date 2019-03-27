@@ -6,6 +6,11 @@ const methods = [
 'GET', 'POST', 'DELETE', 'PUT'
 ]
 
+const status = {
+	errAuth: '__ERROR_AUTH__'
+}
+
+
 function Router () {
 
 }
@@ -17,21 +22,25 @@ function createError (code, message) {
 	return e
 }
 
-Router.configura = function (req, res, options) {
-	let ctx = {req, res}
+function handleError (option, error, ctx) {
+  if (option.onError) {
+    option.onError.call(ctx, error)
+  } else {
+    throw error
+  }
+}
+
+Router.configure = function (req, res, options) {
+	let ctx = {req, res};
 	options.forEach(option => {
-		if (req.method === option.method.toUpperCase()) {
-			if (option.beforeHandler) {
-				if (option.beforeHandler.call(ctx)) {
-					option.handler.call(ctx)
-				} else {
-					let error = createError('__CANNOT_BEFORE_MIDDLEWARE__', '未通过的中间件')
-					if (option.onError) {
-						option.onError.call(ctx, error)
-					} else {
-						throw error
-					}
-				}
+		if (
+			req.method === option.method.toUpperCase() &&
+			req.url === option.url
+		) {
+			if (option.beforeHandler && !option.beforeHandler.call(ctx)) {
+        handleError(option, createError(status['errAuth'], '未通过的中间件'), ctx)
+      } else {
+				option.handler.call(ctx)
 			}
 		}
 	})

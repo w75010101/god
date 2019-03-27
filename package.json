@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "dev": "nodemon ./index.js"
+  },
   "name": "god",
   "version": "0.0.1",
   "description": "no",
